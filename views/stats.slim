@@ -1,0 +1,11 @@
+
+table
+  thead
+    tr
+      th Likes count
+      th Shares count
+  tbody
+  - @stats.each do |stat|
+    tr
+      td = stat[:like_count]
+      td = stat[:share_count]
