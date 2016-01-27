@@ -54,7 +54,7 @@ class FacebookStats < Sinatra::Base
       :share_count => link_stats['share_count'])
     @stats = tstats
     all_links
-    redirect back
+    slim :index
   end
 
   # #DELETE - delete link
