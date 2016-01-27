@@ -17,13 +17,14 @@ module Facebook
         }
     end
 
-    def known(url, json)
-      {
-        'host' => URI(url).host, # base domain,
-        'url' => url,
-        'like_count' => json[0]['like_count'], # likes_count#
-        'share_count' => json[0]['share_count'] # shares_count#
-      }
+    def known(url, json, results)
+      results <<
+        {
+          'host' => URI(url).host, # base domain,
+          'url' => url,
+          'like_count' => json[0]['like_count'], # likes_count#
+          'share_count' => json[0]['share_count'] # shares_count#
+        }
     end
 
     def valid_url?(uri, new_url)
@@ -48,7 +49,7 @@ module Facebook
       if valid_url?(uri, new_url)
         content = Net::HTTP.get(URI(new_url))
         json = JSON.parse(content)
-        results = known(url, json)
+        known(url, json, results)
       else
         error(url, results)
       end
