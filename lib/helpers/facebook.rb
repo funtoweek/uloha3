@@ -7,17 +7,17 @@ require 'pp'
 
 module Facebook
   class << self
-    def error(url,results)
+    def error(url, results)
       results <<
-          {
-            'host' => 'neznámy', # base domain,
-            'url' => url,
-            'like_count' => 'neznámy', # likes_count#
-            'share_count' => 'neznámy' # shares_count#
-          }
+        {
+          'host' => 'neznámy', # base domain,
+          'url' => url,
+          'like_count' => 'neznámy', # likes_count#
+          'share_count' => 'neznámy' # shares_count#
+        }
     end
 
-    def known(url,json)
+    def known(url, json)
       {
         'host' => URI(url).host, # base domain,
         'url' => url,
@@ -48,12 +48,11 @@ module Facebook
       if valid_url?(uri, new_url)
         content = Net::HTTP.get(URI(new_url))
         json = JSON.parse(content)
-        results = known(url,json)
+        results = known(url, json)
       else
-        error(url,results)
+        error(url, results)
       end
       results
     end
-
   end
 end
