@@ -7,6 +7,8 @@ require 'pp'
 
 module Facebook
   class << self
+    FACEBOOK_API_URL = 'http://api.facebook.com/'
+    QUERY = 'method/links.getStats?urls=#query#&format=json'
     def error(url, results)
       results <<
         {
@@ -40,11 +42,9 @@ module Facebook
     end
 
     def url_stats(url)
-      facebook_api_url = 'http://api.facebook.com/'
-      query = 'method/links.getStats?urls=#query#&format=json'
       results = []
       uri = URI(url)
-      new_url = facebook_api_url + query.gsub(/#query#/, url)
+      new_url = FACEBOOK_API_URL + QUERY.gsub(/#query#/, url)
 
       if valid_url?(uri, new_url)
         content = Net::HTTP.get(URI(new_url))
